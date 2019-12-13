@@ -135,40 +135,40 @@ public class MainActivity extends BaseActivity implements
     }
     // [END auth_with_google]
 
-    // [START signin]
+     //[START signin]
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signin]
 
-    private void signOut() {
-        // Firebase sign out
-        mAuth.signOut();
-
-        // Google sign out
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
-    }
-
-    private void revokeAccess() {
-        // Firebase sign out
-        mAuth.signOut();
-
-        // Google revoke access
-        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
-    }
+//    private void signOut() {
+//        // Firebase sign out
+//        mAuth.signOut();
+//
+//        // Google sign out
+//        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+//                new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        updateUI(null);
+//                    }
+//                });
+//    }
+//
+//    private void revokeAccess() {
+//        // Firebase sign out
+//        mAuth.signOut();
+//
+//        // Google revoke access
+//        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
+//                new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        updateUI(null);
+//                    }
+//                });
+//    }
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
@@ -176,8 +176,10 @@ public class MainActivity extends BaseActivity implements
             mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
-            findViewById(R.id.signInButton).setVisibility(View.GONE);
-            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
+//            findViewById(R.id.signInButton).setVisibility(View.GONE);
+//            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
+            Intent home = new Intent (MainActivity.this, HomeActivity.class);
+            startActivity(home);
         } else {
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
@@ -192,10 +194,10 @@ public class MainActivity extends BaseActivity implements
         int i = v.getId();
         if (i == R.id.signInButton) {
             signIn();
-        } else if (i == R.id.signOutButton) {
-            signOut();
-        } else if (i == R.id.disconnectButton) {
-            revokeAccess();
+//        } else if (i == R.id.signOutButton) {
+//            signOut();
+//        } else if (i == R.id.disconnectButton) {
+//            revokeAccess();
         }
     }
 }
