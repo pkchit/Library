@@ -68,6 +68,8 @@ public class MainActivity extends BaseActivity implements
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+
+
     }
 
     // [START on_start_check_user]
@@ -77,6 +79,7 @@ public class MainActivity extends BaseActivity implements
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
+
     }
     // [END on_start_check_user]
 
@@ -142,19 +145,19 @@ public class MainActivity extends BaseActivity implements
     }
     // [END signin]
 
-//    private void signOut() {
-//        // Firebase sign out
-//        mAuth.signOut();
-//
-//        // Google sign out
-//        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-//                new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        updateUI(null);
-//                    }
-//                });
-//    }
+    public void signOut() {
+        // Firebase sign out
+        mAuth.signOut();
+
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        updateUI(null);
+                    }
+                });
+    }
 //
 //    private void revokeAccess() {
 //        // Firebase sign out
@@ -175,7 +178,7 @@ public class MainActivity extends BaseActivity implements
         if (user != null) {
             mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-
+//
 //            findViewById(R.id.signInButton).setVisibility(View.GONE);
 //            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
             Intent home = new Intent (MainActivity.this, navigation.class);
@@ -201,3 +204,4 @@ public class MainActivity extends BaseActivity implements
         }
     }
 }
+

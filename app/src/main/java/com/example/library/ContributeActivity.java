@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -184,7 +185,8 @@ public class ContributeActivity extends AppCompatActivity
     private void saveBookInfoToDatabase()
     {
 
-
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String email = mAuth.getUid();
         HashMap<String, Object> productMap = new HashMap<>();
         productMap.put("Bid", productRandomKey);
         productMap.put("date", saveCurrentDate);
@@ -201,6 +203,7 @@ public class ContributeActivity extends AppCompatActivity
 
                 if (task.isSuccessful())
                 {
+                    mProgressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(ContributeActivity.this , "Book Added Successfully", Toast.LENGTH_SHORT).show();
                 }
                 else
