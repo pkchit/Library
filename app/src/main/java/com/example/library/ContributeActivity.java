@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -186,7 +187,7 @@ public class ContributeActivity extends AppCompatActivity
     {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String email = mAuth.getUid();
+        FirebaseUser user = mAuth.getCurrentUser();
         HashMap<String, Object> productMap = new HashMap<>();
         productMap.put("Bid", productRandomKey);
         productMap.put("date", saveCurrentDate);
@@ -195,7 +196,7 @@ public class ContributeActivity extends AppCompatActivity
         productMap.put("category", BookCategory);
         productMap.put("description", BookDescription);
         productMap.put("image", downloadImageUrl);
-
+        productMap.put("email", user.getEmail());
         BookRef.child(productRandomKey)
                 .updateChildren(productMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
