@@ -28,7 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
 
-public class navigation extends AppCompatActivity{
+public class NavigationActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private Button logoutButton;
@@ -72,7 +72,7 @@ public class navigation extends AppCompatActivity{
 
 
 
-                Intent home = new Intent(navigation.this, MainActivity.class);
+                Intent home = new Intent(NavigationActivity.this, MainActivity.class);
                 startActivity(home);
             }
         });
@@ -83,7 +83,7 @@ public class navigation extends AppCompatActivity{
         contribute.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Intent cont = new Intent(navigation.this, ContributeActivity.class);
+                Intent cont = new Intent(NavigationActivity.this, ContributeActivity.class);
                 startActivity(cont);
                 return true;
             }

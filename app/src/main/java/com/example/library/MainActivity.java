@@ -159,19 +159,19 @@ public class MainActivity extends BaseActivity implements
                 });
     }
 //
-//    private void revokeAccess() {
-//        // Firebase sign out
-//        mAuth.signOut();
-//
-//        // Google revoke access
-//        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-//                new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        updateUI(null);
-//                    }
-//                });
-//    }
+    private void revokeAccess() {
+        // Firebase sign out
+        mAuth.signOut();
+
+        // Google revoke access
+        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        updateUI(null);
+                    }
+                });
+    }
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity implements
 //
 //            findViewById(R.id.signInButton).setVisibility(View.GONE);
 //            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
-            Intent home = new Intent (MainActivity.this, navigation.class);
+            Intent home = new Intent (MainActivity.this, NavigationActivity.class);
             startActivity(home);
         } else {
             mStatusTextView.setText(R.string.signed_out);
