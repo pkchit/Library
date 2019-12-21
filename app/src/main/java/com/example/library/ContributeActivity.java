@@ -36,16 +36,17 @@ import java.util.HashMap;
 public class ContributeActivity extends AppCompatActivity
 {
 
-    private String BookName, BookCategory , BookDescription, saveCurrentDate, saveCurrentTime;
+    private String BookName, BookCategory , BookDescription, saveCurrentDate, saveCurrentTime, authorName;
     private String productRandomKey, downloadImageUrl;
     private Button AddNewBookButton;
-    private EditText InputBookName, InputBookCategory , InputBookDescription;
+    private EditText InputBookName, InputBookCategory , InputBookDescription, InputAuthorName;
     private ImageView InputBookImage;
     private static final int GalleryPick = 1;
     private Uri ImageUri;
     private StorageReference ProductImagesRef;
     private DatabaseReference BookRef;
     private ProgressBar mProgressBar;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +54,16 @@ public class ContributeActivity extends AppCompatActivity
         setContentView(R.layout.activity_contribute);
 
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
-        BookRef = FirebaseDatabase.getInstance().getReference().child("Books");
+        database = FirebaseDatabase.getInstance();
+        BookRef = database.getReference().child("dasd");
+
 
         AddNewBookButton =   findViewById(R.id.add_book_button);
         InputBookImage = findViewById(R.id.book_image);
         InputBookName =  findViewById(R.id.book_name);
         InputBookCategory= findViewById(R.id.book_category);
         InputBookDescription =  findViewById(R.id.book_description);
+        InputAuthorName = findViewById(R.id.author);
 
         mProgressBar = findViewById(R.id.progressBar);
 
@@ -102,6 +106,7 @@ public class ContributeActivity extends AppCompatActivity
         BookName = InputBookName.getText().toString();
         BookCategory = InputBookCategory.getText().toString();
         BookDescription = InputBookDescription.getText().toString();
+        authorName = InputAuthorName.getText().toString();
         if(ImageUri==null)
         {
             Toast.makeText(this, "Book image is mandatory", Toast.LENGTH_SHORT).show();
@@ -117,6 +122,10 @@ public class ContributeActivity extends AppCompatActivity
         else if(TextUtils.isEmpty(BookDescription))
         {
             Toast.makeText(this, "Book Description is mandatory", Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(authorName))
+        {
+            Toast.makeText(this, "Author name is mandatory", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -189,19 +198,18 @@ public class ContributeActivity extends AppCompatActivity
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         HashMap<String, Object> productMap = new HashMap<>();
-        productMap.put("Bid", productRandomKey);
+        productMap.put("Bid", productRandomKey+user.getEmail());
         productMap.put("date", saveCurrentDate);
         productMap.put("time", saveCurrentTime);
         productMap.put("name", BookName);
         productMap.put("category", BookCategory);
+        productMap.put("author name",authorName);
         productMap.put("description", BookDescription);
         productMap.put("image", downloadImageUrl);
         productMap.put("email", user.getEmail());
-        BookRef.child(productRandomKey)
-                .updateChildren(productMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        BookRef.push().setValue(new Contribution(productRandomKey+user.getEmail(),BookName,BookCategory,authorName,BookDescription,user.getEmail(),downloadImageUrl,null)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
                 if (task.isSuccessful())
                 {
                     mProgressBar.setVisibility(View.INVISIBLE);
@@ -214,7 +222,33 @@ public class ContributeActivity extends AppCompatActivity
 
                 }
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ContributeActivity.this,"asd",Toast.LENGTH_SHORT).show();
+            }
         });
+        //productMap.put()
+
+//        BookRef.child(productRandomKey)
+//                .updateChildren(new Contribution(BookName,BookCategory,authorName,BookDescription,downloadImageUrl)).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//
+//                if (task.isSuccessful())
+//                {
+//                    mProgressBar.setVisibility(View.INVISIBLE);
+//                    Toast.makeText(ContributeActivity.this , "Book Added Successfully", Toast.LENGTH_SHORT).show();
+//                }
+//                else
+//                {
+//                    String message = task.getException().toString();
+//                    Toast.makeText(ContributeActivity.this , "Error:"+message, Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//        });
+
     }
 
 
