@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +41,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -59,7 +61,7 @@ public class ContributeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View root = inflater.inflate(R.layout.fragment_contribute, container, false);
         //final TextView textView = root.findViewById(R.id.text_gallery);
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         database = FirebaseDatabase.getInstance();
@@ -75,7 +77,8 @@ public class ContributeFragment extends Fragment {
 
         mProgressBar = root.findViewById(R.id.progressBar);
 
-        InputBookImage.setOnClickListener(new View.OnClickListener() {
+        InputBookImage.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OpenGallery();
@@ -94,7 +97,7 @@ public class ContributeFragment extends Fragment {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        getActivity().startActivityForResult(galleryIntent, GalleryPick);
+        startActivityForResult(galleryIntent, GalleryPick);
     }
 
     @Override
@@ -222,6 +225,7 @@ public class ContributeFragment extends Fragment {
                 {
                     mProgressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(ContributeFragment.this.getActivity() , "Book Added Successfully", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(ContributeFragment.this.getActivity(),R.id.nav_host_fragment).navigate(R.id.nav_home);
                 }
                 else
                 {
