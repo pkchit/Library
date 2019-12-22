@@ -76,8 +76,8 @@ public class NavigationActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_requests, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_home, R.id.nav_requests, R.id.nav_slideshow,R.id.nav_contribute,
+                R.id.nav_tools)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -90,10 +90,13 @@ public class NavigationActivity extends AppCompatActivity {
                     case R.id.nav_requests:
                         Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_requests);
                         break;
-                    case R.id.nav_home:
+                    case R.id.nav_home:Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_home);
                         break;
-                    case R.id.nav_cart:break;
-
+                    case R.id.nav_account_settings:Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_tools);
+                        break;
+                    case R.id.nav_contribute:
+                        Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_contribute);
+                        break;
 
                 }
                 menuItem.setChecked(true);
@@ -115,15 +118,15 @@ public class NavigationActivity extends AppCompatActivity {
 
 
         navigationView= findViewById(R.id.nav_view);
-        MenuItem contribute = navigationView.getMenu().findItem(R.id.contribute_button);
-        contribute.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent cont = new Intent(NavigationActivity.this, ContributeActivity.class);
-                startActivity(cont);
-                return true;
-            }
-        });
+//        MenuItem contribute = navigationView.getMenu().findItem(R.id.nav_contribute);
+//        contribute.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Intent cont = new Intent(NavigationActivity.this, ContributeActivity.class);
+//                startActivity(cont);
+//                return true;
+//            }
+//        });
         View headerView = navigationView.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.profile_name);
         CircleImageView profileImageView=headerView.findViewById(R.id.profile_image);

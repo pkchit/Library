@@ -74,11 +74,11 @@ public class HomeFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ModelEx model) {
                 holder.setTxtTitle(model.getmTitle());
-                holder.setTxtTitle(model.getmDesc());
+                holder.setTxtDesc(model.getmDesc());
                 holder.root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(HomeFragment.this.getActivity(),"asd",Toast.LENGTH_SHORT);
+                        Toast.makeText(HomeFragment.this.getActivity(),"asd",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
