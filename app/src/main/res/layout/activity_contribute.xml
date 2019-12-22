@@ -51,24 +51,11 @@
         android:hint="Book Category"
         android:textAlignment="center"
         />
-
-    <EditText
-        android:id="@+id/author"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/book_category"
-        android:inputType="textMultiLine"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:hint="Author"
-        android:textAlignment="center"
-        />
     <EditText
         android:id="@+id/book_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/author"
+        android:layout_below="@id/book_category"
         android:inputType="textMultiLine"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"

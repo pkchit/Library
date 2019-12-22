@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_requests"
+        android:id="@+id/nav_gallery"
         android:name="com.example.library.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
@@ -34,11 +34,6 @@
         android:name="com.example.library.ui.share.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
-    <fragment
-        android:id="@+id/nav_contribute"
-        android:name="com.example.library.ui.contribute.ContributeFragment"
-        android:label="@string/menu_contribute"
-        tools:layout="@layout/fragment_contribute" />
 
     <fragment
         android:id="@+id/nav_send"
