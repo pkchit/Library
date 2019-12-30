@@ -147,7 +147,7 @@ public class ContributeFragment extends Fragment {
     private void storeBookInformation() {
 
         mProgressBar.setVisibility(View.VISIBLE);
-
+        //System.out.println();
         Calendar calender = Calendar.getInstance();
 
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM,dd,yyyy");
