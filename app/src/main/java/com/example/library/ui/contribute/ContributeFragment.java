@@ -208,16 +208,6 @@ public class ContributeFragment extends Fragment {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        HashMap<String, Object> productMap = new HashMap<>();
-        productMap.put("Bid", productRandomKey+user.getEmail());
-        productMap.put("date", saveCurrentDate);
-        productMap.put("time", saveCurrentTime);
-        productMap.put("name", BookName);
-        productMap.put("category", BookCategory);
-        productMap.put("author name",authorName);
-        productMap.put("description", BookDescription);
-        productMap.put("image", downloadImageUrl);
-        productMap.put("email", user.getEmail());
         BookRef.push().setValue(new Contribution(productRandomKey+user.getEmail(),BookName,BookCategory,authorName,BookDescription,user.getEmail(),downloadImageUrl,null)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -237,7 +227,7 @@ public class ContributeFragment extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ContributeFragment.this.getActivity(),"asd",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ContributeFragment.this.getActivity(),"try again later",Toast.LENGTH_SHORT).show();
             }
         });
         //productMap.put()

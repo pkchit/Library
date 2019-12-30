@@ -45,4 +45,9 @@
         android:name="com.example.library.ui.send.SendFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_send" />
+    <fragment
+        android:id="@+id/nav_reqform"
+        android:name="com.example.library.ui.reqform.ReqFormFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_reqform" />
 </navigation>

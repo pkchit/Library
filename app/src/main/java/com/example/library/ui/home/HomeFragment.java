@@ -12,15 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.Contribution;
 import com.example.library.ModelEx;
 import com.example.library.R;
+import com.example.library.ui.reqform.ReqFormFragment;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -57,7 +60,7 @@ public class HomeFragment extends Fragment {
             @NonNull
             @Override
             public ModelEx parseSnapshot(@NonNull DataSnapshot snapshot) {
-                return new ModelEx(snapshot.child("name").getValue().toString(),snapshot.child("author").getValue().toString(),snapshot.child("category").getValue().toString());
+                return new ModelEx(snapshot.getKey(),snapshot.child("author").getValue().toString(),snapshot.child("owner").getValue().toString());
 
             }
         }).build();
@@ -72,13 +75,17 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ModelEx model) {
-                holder.setTxtTitle(model.getmTitle());
+            protected void onBindViewHolder(@NonNull final ViewHolder holder, int position, @NonNull final ModelEx model) {
+                holder.setTxtTitle(model.getmId());
                 holder.setTxtDesc(model.getmDesc());
                 holder.root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(HomeFragment.this.getActivity(),"asd",Toast.LENGTH_SHORT).show();
+                        Bundle b=new Bundle();
+                        b.putString("key",model.getmId());
+                        Navigation.findNavController(HomeFragment.this.getActivity(),R.id.nav_host_fragment).navigate(R.id.nav_reqform,b);
+
                     }
                 });
             }
