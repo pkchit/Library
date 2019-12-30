@@ -11,19 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.library.ContributeActivity;
 import com.example.library.Contribution;
 import com.example.library.R;
-import com.example.library.ui.gallery.GalleryViewModel;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -34,13 +30,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import static android.app.Activity.RESULT_OK;
@@ -65,7 +58,7 @@ public class ContributeFragment extends Fragment {
         //final TextView textView = root.findViewById(R.id.text_gallery);
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         database = FirebaseDatabase.getInstance();
-        BookRef = database.getReference().child("dasd");
+        BookRef = database.getReference().child("Books");
 
 
         AddNewBookButton =   root.findViewById(R.id.add_book_button);
@@ -194,7 +187,7 @@ public class ContributeFragment extends Fragment {
                         if (task.isSuccessful())
                         {
                             Toast.makeText(ContributeFragment.this.getActivity() , "Got the product image", Toast.LENGTH_SHORT).show();
-
+                            downloadImageUrl= task.getResult().toString();
                             saveBookInfoToDatabase();
                         }
                     }
@@ -208,16 +201,6 @@ public class ContributeFragment extends Fragment {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        HashMap<String, Object> productMap = new HashMap<>();
-        productMap.put("Bid", productRandomKey+user.getEmail());
-        productMap.put("date", saveCurrentDate);
-        productMap.put("time", saveCurrentTime);
-        productMap.put("name", BookName);
-        productMap.put("category", BookCategory);
-        productMap.put("author name",authorName);
-        productMap.put("description", BookDescription);
-        productMap.put("image", downloadImageUrl);
-        productMap.put("email", user.getEmail());
         BookRef.push().setValue(new Contribution(productRandomKey+user.getEmail(),BookName,BookCategory,authorName,BookDescription,user.getEmail(),downloadImageUrl,null)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

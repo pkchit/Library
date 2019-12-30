@@ -24,6 +24,10 @@
             android:icon="@drawable/contribute"
             android:title="Contribute"
             />
+        <item
+            android:id="@+id/nav_inventory"
+            android:title="Inventory"
+            />
 
     </group>
 

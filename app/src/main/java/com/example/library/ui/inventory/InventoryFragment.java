@@ -1,58 +1,60 @@
-package com.example.library.ui.home;
+package com.example.library.ui.inventory;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.library.Contribution;
 import com.example.library.ModelEx;
 import com.example.library.R;
+import com.example.library.ui.home.HomeFragment;
+import com.example.library.ui.home.ViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class HomeFragment extends Fragment {
+public class InventoryFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
-    private FirebaseRecyclerAdapter fireBaseRecyclerAdapter;
+    private  FirebaseRecyclerAdapter fireBaseRecyclerAdapter;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    public InventoryFragment() {
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-//        final TextView textView = root.findViewById(R.id.text_home);
-//        homeViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-        recyclerView = root.findViewById(R.id.list);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_inventory, container, false);
+
+
+        mAuth= FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
+        recyclerView = rootView.findViewById(R.id.list_inventory);
         linearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         fetch();
-        return root;
+        return rootView;
     }
+
     private void fetch() {
-        Query query = FirebaseDatabase.getInstance().getReference().child("Books");
+        Query query = FirebaseDatabase.getInstance().getReference("Books").orderByChild("owner").equalTo(user.getEmail());
         FirebaseRecyclerOptions<ModelEx> options = new FirebaseRecyclerOptions.Builder<ModelEx>().setQuery(query, new SnapshotParser<ModelEx>() {
             @NonNull
             @Override
@@ -76,11 +78,10 @@ public class HomeFragment extends Fragment {
             protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ModelEx model) {
                 holder.setTxtTitle(model.getmTitle());
                 holder.setTxtDesc(model.getmDesc());
-                holder.setImageView(model.getmImageURL());
                 holder.root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(HomeFragment.this.getActivity(),"asd",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InventoryFragment.this.getActivity(),"Hello!!!",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -97,6 +98,5 @@ public class HomeFragment extends Fragment {
         super.onStop();
         fireBaseRecyclerAdapter.stopListening();
     }
-
 
 }

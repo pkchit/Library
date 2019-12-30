@@ -77,7 +77,7 @@ public class NavigationActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_requests, R.id.nav_slideshow,R.id.nav_contribute,
-                R.id.nav_tools)
+                R.id.nav_tools, R.id.nav_inventory)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -97,7 +97,9 @@ public class NavigationActivity extends AppCompatActivity {
                     case R.id.nav_contribute:
                         Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_contribute);
                         break;
-
+                    case R.id.nav_inventory:
+                        Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_inventory);
+                        break;
                 }
                 menuItem.setChecked(true);
                 drawer.closeDrawer(GravityCompat.START);
@@ -129,6 +131,7 @@ public class NavigationActivity extends AppCompatActivity {
 //        });
         View headerView = navigationView.getHeaderView(0);
         TextView username=headerView.findViewById(R.id.profile_name);
+
         CircleImageView profileImageView=headerView.findViewById(R.id.profile_image);
 
 
