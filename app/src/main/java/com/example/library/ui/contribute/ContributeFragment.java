@@ -65,7 +65,7 @@ public class ContributeFragment extends Fragment {
         //final TextView textView = root.findViewById(R.id.text_gallery);
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         database = FirebaseDatabase.getInstance();
-        BookRef = database.getReference().child("dasd");
+        BookRef = database.getReference().child("Books");
 
 
         AddNewBookButton =   root.findViewById(R.id.add_book_button);
@@ -208,7 +208,7 @@ public class ContributeFragment extends Fragment {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        BookRef.push().setValue(new Contribution(productRandomKey+user.getEmail(),BookName,BookCategory,authorName,BookDescription,user.getEmail(),downloadImageUrl,null)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        BookRef.push().setValue(new Contribution(productRandomKey+user.getEmail(),BookName,BookCategory,authorName,BookDescription,user.getEmail().replace(".","=*="),downloadImageUrl,null)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful())

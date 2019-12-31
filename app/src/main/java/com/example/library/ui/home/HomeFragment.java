@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
         return root;
     }
     private void fetch() {
-        Query query = FirebaseDatabase.getInstance().getReference().child("dasd");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Books");
         FirebaseRecyclerOptions<ModelEx> options = new FirebaseRecyclerOptions.Builder<ModelEx>().setQuery(query, new SnapshotParser<ModelEx>() {
             @NonNull
             @Override
