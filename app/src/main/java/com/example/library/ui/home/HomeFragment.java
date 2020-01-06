@@ -24,6 +24,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -60,7 +62,9 @@ public class HomeFragment extends Fragment {
             @NonNull
             @Override
             public ModelEx parseSnapshot(@NonNull DataSnapshot snapshot) {
-                return new ModelEx(snapshot.getKey(),snapshot.child("author").getValue().toString(),snapshot.child("owner").getValue().toString());
+                return new ModelEx(snapshot.getKey(),snapshot.child("name").getValue().toString(),snapshot.child("owner").getValue().toString(),snapshot.child("author").getValue().toString(),snapshot.child("downloadImage").getValue().toString());
+                //return new ModelEx(snapshot.child("name").getValue().toString(),snapshot.child("author").getValue().toString(),snapshot.child("category").getValue().toString(),
+                        //snapshot.child("downloadImage").getValue().toString());
 
             }
         }).build();
@@ -76,18 +80,26 @@ public class HomeFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull final ViewHolder holder, int position, @NonNull final ModelEx model) {
-                holder.setTxtTitle(model.getmId());
-                holder.setTxtDesc(model.getmDesc());
-                holder.root.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(HomeFragment.this.getActivity(),"asd",Toast.LENGTH_SHORT).show();
-                        Bundle b=new Bundle();
-                        b.putString("key",model.getmId());
-                        Navigation.findNavController(HomeFragment.this.getActivity(),R.id.nav_host_fragment).navigate(R.id.nav_reqform,b);
+                FirebaseAuth mAuth=FirebaseAuth.getInstance();
+                FirebaseUser user=mAuth.getCurrentUser();
+                if(model.getOwner().equals(user.getEmail().replace(".","=*="))) {
+                    holder.root.setVisibility(View.GONE);
+                } else {
+                    holder.setTxtTitle(model.getmId());
+                    holder.setTxtDesc(model.getmauthor());
+                    holder.owner.setText(model.getOwner());
+                    holder.setImageView(model.getmImageURL());
+                    holder.root.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(HomeFragment.this.getActivity(), "asd", Toast.LENGTH_SHORT).show();
+                            Bundle b = new Bundle();
+                            b.putString("key", model.getmId());
+                            Navigation.findNavController(HomeFragment.this.getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_reqform, b);
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         };
         recyclerView.setAdapter(fireBaseRecyclerAdapter);

@@ -16,14 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class GalleryFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
-
+    private FirebaseDatabase database;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 //        galleryViewModel =
@@ -36,7 +39,19 @@ public class GalleryFragment extends Fragment {
 //                textView.setText(s);
 //            }
 //        });
-
+        recyclerView = root.findViewById(R.id.list);
+        linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        fetch();
         return root;
+    }
+    private void fetch() {
+        database = FirebaseDatabase.getInstance();
+        FirebaseAuth  mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user  = mAuth.getCurrentUser();
+        String ss=user.getEmail().replace(".","=*=");
+        Query query=database.getReference("requests").child(ss);
+
     }
 }

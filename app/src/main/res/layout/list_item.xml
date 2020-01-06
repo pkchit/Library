@@ -16,27 +16,43 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="?attr/selectableItemBackground"
         android:padding="16dp">
-
-        <TextView
-            android:id="@+id/list_title"
+        <ImageView
+            android:id="@+id/list_image"
+            android:layout_width="170dp"
+            android:layout_height="220dp"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/list_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
 
-        <TextView
-            android:id="@+id/list_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="20dp"
-            android:text="Author" />
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/list_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:text="Author" />
+
+            <TextView
+                android:id="@+id/list_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:text="Owner" />
+        </LinearLayout>
 
     </LinearLayout>
 

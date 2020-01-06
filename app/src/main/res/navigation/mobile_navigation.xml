@@ -41,6 +41,12 @@
         tools:layout="@layout/fragment_contribute" />
 
     <fragment
+        android:id="@+id/nav_inventory"
+        android:name="com.example.library.ui.inventory.InventoryFragment"
+        android:label="@string/menu_inventory"
+        tools:layout="@layout/fragment_inventory" />
+
+    <fragment
         android:id="@+id/nav_send"
         android:name="com.example.library.ui.send.SendFragment"
         android:label="@string/menu_send"

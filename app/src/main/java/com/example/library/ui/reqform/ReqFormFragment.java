@@ -85,31 +85,32 @@ public class ReqFormFragment extends Fragment {
                             ref.child(ss).child(s).child(s1).setValue(status).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-//                        database.getReference("activeRequests").child(s1).child(s).setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//                                if(task.isSuccessful()) {
-//                                    Toast.makeText(ReqFormFragment.this.getActivity(),"Oh yeah",Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                System.out.println(e.toString());
-//                            }
-//                        });
-                                    if (task.isSuccessful())
-//
-                                        Toast.makeText(ReqFormFragment.this.getActivity(),"requested owner",Toast.LENGTH_SHORT).show();
 
+                                    if (task.isSuccessful()) {
+//
+                                        Toast.makeText(ReqFormFragment.this.getActivity(), "requested owner", Toast.LENGTH_SHORT).show();
+                                        database.getReference("pendingRequests").child(s1).child(s).setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()) {
+                                                    Toast.makeText(ReqFormFragment.this.getActivity(),"Oh yeah",Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                System.out.println(e.toString());
+                                            }
+                                        });
+                                    }
                                     else
-                                        Toast.makeText(ReqFormFragment.this.getActivity(),"fuck off bitch",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ReqFormFragment.this.getActivity(),"f",Toast.LENGTH_SHORT).show();
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(ReqFormFragment.this.getActivity(),"fuck off",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ReqFormFragment.this.getActivity(),"ftp",Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
