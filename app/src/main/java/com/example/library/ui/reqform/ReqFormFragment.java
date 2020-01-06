@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -34,9 +36,11 @@ public class ReqFormFragment extends Fragment {
     private Button button;
     private TextView title;
     private TextView author;
+    private TextView owner;
     FirebaseDatabase database;
     DatabaseReference ref;
     private Contribution contri;
+    public ImageView imageView;
     private void setContribution(Contribution contri) {
         this.contri=contri;
     }
@@ -46,6 +50,8 @@ public class ReqFormFragment extends Fragment {
         final Button b=root.findViewById(R.id.reqest_button);
         title=root.findViewById(R.id.titleC);
         author=root.findViewById(R.id.authorC);
+        owner=root.findViewById(R.id.ownerC);
+        imageView=root.findViewById(R.id.BookCover);
         final Bundle bb=getArguments();
         final String s=bb.getString("key");
         //title.setText(s);
@@ -54,8 +60,10 @@ public class ReqFormFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Contribution cont=dataSnapshot.getValue(Contribution.class);
                 ReqFormFragment.this.setContribution(cont);
-                title.setText(contri.getId());
+                title.setText(contri.getName());
                 author.setText(contri.getAuthor());
+                owner.setText(contri.getOwner().replace("=*=","."));
+                Picasso.get().load(contri.getDownloadImage()).fit().centerCrop().into(imageView);
             }
 
             @Override
@@ -70,7 +78,7 @@ public class ReqFormFragment extends Fragment {
                 ref=database.getReference("requests");
                 final FirebaseAuth mAuth=FirebaseAuth.getInstance();
                 final FirebaseUser user = mAuth.getCurrentUser();
-                author.setText(user.getEmail());
+//                author.setText(user.getEmail());
                 System.out.println(user.getEmail());
                 final String s1=user.getEmail().replace(".","=*=");
                 ref.child(contri.getOwner()).child(s).child(s1).addValueEventListener(new ValueEventListener() {
