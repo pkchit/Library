@@ -9,7 +9,11 @@ public class RequestListModel {
    private String bookname;
    private String authorname;
    private String bookID;
-
+   public RequestListModel(String bookID) {
+      bookname="";
+      authorname="";
+      this.bookID=bookID;
+   }
    public RequestListModel(String bookname, String authorname, String bookID) {
       this.bookname = bookname;
       this.authorname = authorname;
