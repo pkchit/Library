@@ -53,7 +53,7 @@ public class InventoryFragment extends Fragment {
     }
 
     private void fetch() {
-        Query query = FirebaseDatabase.getInstance().getReference("users");
+        Query query = FirebaseDatabase.getInstance().getReference("Books");
         FirebaseRecyclerOptions<ModelEx> options = new FirebaseRecyclerOptions.Builder<ModelEx>().setQuery(query, new SnapshotParser<ModelEx>() {
             @NonNull
             @Override

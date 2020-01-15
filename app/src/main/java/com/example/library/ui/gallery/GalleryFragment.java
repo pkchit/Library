@@ -58,7 +58,7 @@ public class GalleryFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         FirebaseAuth  mAuth = FirebaseAuth.getInstance();
         FirebaseUser user  = mAuth.getCurrentUser();
-        String ss=user.getEmail().replace(".","=*=");
+        final String ss=user.getEmail().replace(".","=*=");
         Query query=database.getReference("requests").child(ss);
         //Query query = FirebaseDatabase.getInstance().getReference().child("Books");
         FirebaseRecyclerOptions<RequestListModel> options = new FirebaseRecyclerOptions.Builder<RequestListModel>().setQuery(query, new SnapshotParser<RequestListModel>() {
@@ -91,7 +91,10 @@ public class GalleryFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Toast.makeText(GalleryFragment.this.getActivity(), "Proceeding to Requests", Toast.LENGTH_SHORT).show();
-                            Navigation.findNavController(GalleryFragment.this.getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_req);
+                            Bundle b=new Bundle();
+                            b.putString("bookID",model.getBookID());
+                            b.putString("userID",ss);
+                            Navigation.findNavController(GalleryFragment.this.getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_req,b);
 
                         }
                     });
