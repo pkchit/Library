@@ -80,8 +80,13 @@ public class ReqFragment extends Fragment {
                 holder.chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Navigation code to be written by Puneet to proceed to the chat activity/fragment
+                        Bundle b=new Bundle();
+                        b.putString("requesteeID",user);
+                        b.putString("requesterID",model);
                         Toast.makeText(ReqFragment.this.getActivity(),model+" rocks",Toast.LENGTH_SHORT).show();
+
+                        //Navigation code to be written by Puneet to proceed to the chat activity/fragment
+
 
                     }
                 });
