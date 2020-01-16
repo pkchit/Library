@@ -75,14 +75,21 @@ public class InventoryFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ModelEx model) {
-                holder.setTxtTitle(model.getmTitle());
-                holder.setTxtDesc(model.getmauthor());
-                holder.root.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(InventoryFragment.this.getActivity(),"Hello!!!",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                FirebaseAuth mAuth=FirebaseAuth.getInstance();
+                FirebaseUser user=mAuth.getCurrentUser();
+                if(model.getOwner().equals(user.getEmail().replace(".","=*="))) {
+
+                    holder.setTxtTitle(model.getmTitle());
+                    holder.setTxtDesc(model.getmauthor());
+                    holder.root.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(InventoryFragment.this.getActivity(), "Hello!!!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else
+                    holder.root.setVisibility(View.GONE);
             }
         };
         recyclerView.setAdapter(fireBaseRecyclerAdapter);

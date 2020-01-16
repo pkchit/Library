@@ -47,18 +47,27 @@
         tools:layout="@layout/fragment_inventory" />
 
     <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.example.library.ui.chat.ChatFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/fragment_chat" />
+
+    <fragment
         android:id="@+id/nav_send"
         android:name="com.example.library.ui.send.SendFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_send" />
+
     <fragment
         android:id="@+id/nav_reqform"
         android:name="com.example.library.ui.reqform.ReqFormFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_reqform" />
+
     <fragment
         android:id="@+id/nav_req"
         android:name="com.example.library.ui.req.ReqFragment"
         android:label="Request List"
         tools:layout="@layout/fragment_req" />
+
 </navigation>

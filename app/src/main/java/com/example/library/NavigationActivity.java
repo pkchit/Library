@@ -3,11 +3,6 @@ package com.example.library;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import static com.google.firebase.auth.FirebaseAuth.getInstance;
+
 public class NavigationActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -57,7 +54,7 @@ public class NavigationActivity extends AppCompatActivity {
 
 
 
-        mAuth= FirebaseAuth.getInstance();
+        mAuth= getInstance();
 //        user = mAuth.getCurrentUser();
 //        profile_pic=findViewById(R.id.profile_image);
 //        profile_pic.setImageURI(user.getPhotoUrl());
@@ -112,7 +109,7 @@ public class NavigationActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Firebase sign out
-                mAuth.signOut();
+                getInstance().signOut();
                 Intent home = new Intent(NavigationActivity.this, MainActivity.class);
                 startActivity(home);
             }

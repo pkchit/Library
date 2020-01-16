@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.library.R;
 import com.example.library.ui.gallery.GalleryFragment;
 import com.example.library.ui.gallery.RequestListModel;
+import com.example.library.ui.home.HomeFragment;
 import com.example.library.ui.home.ViewHolder;
 import com.example.library.ui.send.SendViewModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -86,7 +87,7 @@ public class ReqFragment extends Fragment {
                         Toast.makeText(ReqFragment.this.getActivity(),model+" rocks",Toast.LENGTH_SHORT).show();
 
                         //Navigation code to be written by Puneet to proceed to the chat activity/fragment
-
+                        Navigation.findNavController(ReqFragment.this.getActivity(), R.id.nav_host_fragment).navigate(R.id.nav_chat, b);
 
                     }
                 });
