@@ -133,14 +133,6 @@ public class ChatFragment extends Fragment {
         // Initialize progress bar
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
-        // ImagePickerButton shows an image picker to upload a image for a message
-        mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: Fire an intent to show an image picker
-            }
-        });
-
         // Enable Send button when there's text to send
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -210,15 +202,6 @@ public class ChatFragment extends Fragment {
                     }
                 });
 
-//        mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.setType("image/jpeg");
-//                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-//                getActivity().startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
-//            }
-//        });
         return rootView;
     }
 
@@ -272,43 +255,8 @@ public class ChatFragment extends Fragment {
                 }
             });
         }
-        ;
+
     }
 }
-
-
-
-
-//            photoref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                @Override
-//                public void onSuccess(Uri uri) {
-//                    Uri downloadUrl = uri;
-//                    FriendlyMessage friendlyMessage = new FriendlyMessage(null,mUsername , downloadUrl.toString());
-//                    messageReference.push().setValue(friendlyMessage);
-//                }
-//            });
-//        }
-
-
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode==RC_PHOTO_PICKER)
-//        {
-//            Uri photoUri = data.getData();
-//            StorageReference photoref = photoStorageReference.child(photoUri.getLastPathSegment());
-//            photoref.putFile(photoUri);
-//            photoref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                @Override
-//                public void onSuccess(Uri uri) {
-//                    Uri downloadUrl = uri;
-//                    FriendlyMessage friendlyMessage = new FriendlyMessage(null,mUsername , downloadUrl.toString());
-//                    messageReference.push().setValue(friendlyMessage);
-//                }
-//            });
-//
-//        }
-//    }
 
 

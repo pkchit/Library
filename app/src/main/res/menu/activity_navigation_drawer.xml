@@ -16,6 +16,10 @@
             android:icon="@drawable/request"
             android:title="@string/menu_gallery" />
         <item
+            android:id="@+id/nav_scanner"
+            android:icon="@drawable/request"
+            android:title="Scanner" />
+        <item
             android:id="@+id/nav_account_settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_settings" />

@@ -94,6 +94,9 @@ public class NavigationActivity extends AppCompatActivity {
                     case R.id.nav_contribute:
                         Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_contribute);
                         break;
+                    case R.id.nav_scanner:
+                        Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_scanner);
+                        break;
                     case R.id.nav_inventory:
                         Navigation.findNavController(NavigationActivity.this,R.id.nav_host_fragment).navigate(R.id.nav_inventory);
                         break;
