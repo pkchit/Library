@@ -1,17 +1,26 @@
 package com.example.library;
 
 public class ModelEx {
-    public String mId, mTitle, mauthor, mImageURL,owner;
+    public String mId;
+    public String mTitle;
+    public String mauthor;
+    public String mImageURL;
+    public String owner;
+
+
+
+    public String mdescription;
     public ModelEx() {
 
     }
 
-    public ModelEx(String mId, String mTitle,String owner, String mauthor, String mImageURL) {
+    public ModelEx(String mId, String mTitle,String owner, String mauthor, String mImageURL, String mdescription) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.owner=owner;
         this.mauthor = mauthor;
         this.mImageURL= mImageURL;
+        this.mdescription=mdescription;
     }
 
     public String getmImageURL() {
@@ -20,6 +29,10 @@ public class ModelEx {
 
     public String getmId() {
         return mId;
+    }
+
+    public String getMdescription() {
+        return mdescription;
     }
 
     public String getMauthor() {

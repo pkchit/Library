@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
     public LinearLayout root;
-    public TextView txtTitle;
-    public TextView txtDesc;
-    public TextView owner;
-    public ImageView imageView;
+    private TextView txtTitle;
+    private TextView txtDesc;
+
+    private TextView owner;
+    private ImageView imageView;
 
     public ViewHolder(View itemView) {
         super(itemView);
@@ -38,5 +39,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     public void setTxtDesc(String string) {
         txtDesc.setText(string);
+    }
+
+    public void setOwner(String string) {
+        owner.setText(string);
     }
 }

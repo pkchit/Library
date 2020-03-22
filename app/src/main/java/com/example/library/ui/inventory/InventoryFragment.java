@@ -58,8 +58,8 @@ public class InventoryFragment extends Fragment {
             @NonNull
             @Override
             public ModelEx parseSnapshot(@NonNull DataSnapshot snapshot) {
-                return new ModelEx(snapshot.getKey(),snapshot.child("name").getValue().toString(),snapshot.child("owner").getValue().toString(),snapshot.child("author").getValue().toString(),
-                        snapshot.child("downloadImage").getValue().toString());
+                return new ModelEx(snapshot.getKey(),snapshot.child("name").getValue().toString(),snapshot.child("owner").getValue().toString(),snapshot.child("author").getValue().toString(),snapshot.child("downloadImage").getValue().toString(), snapshot.child("description").getValue().toString());
+
 
             }
         }).build();

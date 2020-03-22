@@ -42,13 +42,6 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-//        final TextView textView = root.findViewById(R.id.text_home);
-//        homeViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
         recyclerView = root.findViewById(R.id.list);
         linearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -62,9 +55,7 @@ public class HomeFragment extends Fragment {
             @NonNull
             @Override
             public ModelEx parseSnapshot(@NonNull DataSnapshot snapshot) {
-                return new ModelEx(snapshot.getKey(),snapshot.child("name").getValue().toString(),snapshot.child("owner").getValue().toString(),snapshot.child("author").getValue().toString(),snapshot.child("downloadImage").getValue().toString());
-                //return new ModelEx(snapshot.child("name").getValue().toString(),snapshot.child("author").getValue().toString(),snapshot.child("category").getValue().toString(),
-                        //snapshot.child("downloadImage").getValue().toString());
+                return new ModelEx(snapshot.getKey(),snapshot.child("name").getValue().toString(),snapshot.child("owner").getValue().toString(),snapshot.child("author").getValue().toString(),snapshot.child("downloadImage").getValue().toString(), snapshot.child("description").getValue().toString());
 
             }
         }).build();
@@ -85,9 +76,9 @@ public class HomeFragment extends Fragment {
                 if(model.getOwner().equals(user.getEmail().replace(".","=*="))) {
                     holder.root.setVisibility(View.GONE);
                 } else {
-                    holder.setTxtTitle(model.getmId());
-                    holder.setTxtDesc(model.getmauthor());
-                    holder.owner.setText(model.getOwner());
+                    holder.setTxtTitle(model.getmTitle());
+                    holder.setTxtDesc(model.getMdescription());
+                    holder.setOwner(model.getOwner());
                     holder.setImageView(model.getmImageURL());
                     holder.root.setOnClickListener(new View.OnClickListener() {
                         @Override
